@@ -102,8 +102,7 @@ export const fetchUserById = async (id) => {
 
 export const login = async (username, password) => {
   try {
-    const response = await axios.post('/login', { username, password });
-    const data = response.data;
+    const { data } = await axios.post('/login', { username, password });
 
     if (data.success) {
       // Store the token securely (e.g., in localStorage)
