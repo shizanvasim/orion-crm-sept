@@ -5,7 +5,7 @@ import { fetchClientById, updateClient } from '../../api';
 import { LoadingContext } from '../../App';
 
 const EditClient = () => {
-  const [loading, setLoading] = useContext(LoadingContext)
+  const [, setLoading] = useContext(LoadingContext)
   const { clientId } = useParams();
 
   const [snackbarOpen, setSnackbarOpen] = useState(false);
@@ -63,7 +63,7 @@ const EditClient = () => {
     }
 
     fetchClients()
-  }, [clientId]);
+  }, [clientId, setLoading]);
 
   useEffect(() => {
     if (clientInfo.length > 0) {

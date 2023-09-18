@@ -24,7 +24,7 @@ class UserStore {
         });
     }
 
-    async login(username, password) {
+    async login(username) {
         // const response = await login(username, password)
         // this.isAuthenticated = true
         this.username = username

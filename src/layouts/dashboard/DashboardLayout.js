@@ -37,7 +37,7 @@ const Main = styled('div')(({ theme }) => ({
 export default function DashboardLayout() {
   const [open, setOpen] = useState(false);
 
-  const [loading, setLoading] = useContext(LoadingContext)
+  const [loading] = useContext(LoadingContext)
 
   return (
     <StyledRoot>

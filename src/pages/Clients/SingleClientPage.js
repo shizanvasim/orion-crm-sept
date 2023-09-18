@@ -12,36 +12,39 @@ import SingleClientGeneral from './SingeClient/SingleClientGeneral';
 import { LoadingContext } from '../../App';
 
 export default function SingleClientPage() {
-  const [loading, setLoading] = useContext(LoadingContext);
+  const [, setLoading] = useContext(LoadingContext);
   const navigate = useNavigate()
   const [clientInfo, setClientInfo] = useState([]);
   const { clientId } = useParams();
   const [currentTab, setCurrentTab] = useState(0);
 
-  const handleTabChange = (event, newValue) => {
+  const handleTabChange = (newValue) => {
     setCurrentTab(newValue);
   };
 
-  const handleDelete = (id)=>{
+  const handleDelete = (id) => {
     setLoading(true)
     deleteClient(id)
-    .then(data => {
-      console.log(data)
-      setLoading(false)
+      .then(data => {
+        console.log(data)
+        setLoading(false)
         navigate('/dashboard/clients');
         window.location.reload();
-    }).catch(err => console.error(err))
+      }).catch(err => console.error(err))
   }
 
   useEffect(() => {
-    setLoading(true)
+    setLoading(true);
     fetchClientById(clientId)
       .then((data) => {
-        setClientInfo(data)
-        setLoading(false)
+        setClientInfo(data);
+        setLoading(false);
       })
-      .catch((err) => console.error(err));
-  }, [clientId]);
+      .catch((err) => {
+        console.error(err);
+        setLoading(false);
+      });
+  }, [clientId, setLoading]);
 
   return (
     <Container>

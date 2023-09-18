@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 import {
   Card,
@@ -174,6 +175,25 @@ const SingleClientGeneral = ({ info, handleDelete }) => {
       </Dialog>
     </Stack>
   );
+};
+
+// Define PropTypes for your component
+SingleClientGeneral.propTypes = {
+  info: PropTypes.arrayOf(
+    PropTypes.shape({
+      client_id: PropTypes.string.isRequired,
+      first_name: PropTypes.string.isRequired,
+      last_name: PropTypes.string.isRequired,
+      shop_name: PropTypes.string.isRequired,
+      mobile_no: PropTypes.string.isRequired,
+      email_id: PropTypes.string.isRequired,
+      gst_no: PropTypes.string.isRequired,
+      address: PropTypes.string.isRequired,
+      area: PropTypes.string.isRequired,
+      zip_code: PropTypes.string.isRequired,
+    })
+  ).isRequired,
+  handleDelete: PropTypes.func.isRequired,
 };
 
 export default SingleClientGeneral;

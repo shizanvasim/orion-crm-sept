@@ -2,7 +2,7 @@
 
 import userStore from "../stores/UserStore";
 
-const {username, email} = userStore
+const {username} = userStore
 
 const account = {
   displayName: username,

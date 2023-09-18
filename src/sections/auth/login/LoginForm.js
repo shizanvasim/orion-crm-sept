@@ -7,11 +7,11 @@ import userStore from '../../../stores/UserStore';
 
 
 const LoginForm = () => {
-  const { isAuthenticated, username, login } = userStore
+  const { username } = userStore
 
   const navigate = useNavigate();
 
-  const [users, setUsers] = useState([]);
+  // const [users, setUsers] = useState([]);
   const [showPassword, setShowPassword] = useState(false);
   const [givenUsername, setGivenUsername] = useState('');
   const [password, setPassword] = useState('');
@@ -29,14 +29,14 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const enteredUser = users.find((user) => givenUsername === user.username);
+    // const enteredUser = users.find((user) => givenUsername === user.username);
 
     try {
       const response = await apiLogin(givenUsername, password)
       setAlertMessage(response.message)
       setShowMessage(true)
       if(response.success){
-        const loginResponse = await login(givenUsername, password);
+        // const loginResponse = await login(givenUsername, password);
         setSeverity('success')
         navigate('/', {replace: true})
       }else{
@@ -50,7 +50,8 @@ const LoginForm = () => {
   useEffect(() => {
     fetchUsers()
       .then((data) => {
-        setUsers(data);
+        // setUsers(data);
+        console.log(data)
       })
       .catch((err) => {
         console.error(err);

@@ -20,21 +20,20 @@ export default function App() {
   const [loading, setLoading] = useState(false)
   // const [currentuser, setCurrentUser] = useState([])
   const token = localStorage.getItem("token")
-  const { setUserInfo} = userStore
+  const { setUserInfo } = userStore
 
   // Client Side
   useEffect(() => {
-    (async()=>{
-      if(!token){
-        console.log("Please Login First")
-      }else{
-        const response = await axios.post('/login/protected', {"token": token})
-        // setCurrentUser(response.data.user)
-        localStorage.setItem('user', JSON.stringify(response))
-        setUserInfo(response.data.user)
+    (async () => {
+      if (!token) {
+        console.log("Please Login First");
+      } else {
+        const response = await axios.post('/login/protected', { "token": token });
+        localStorage.setItem('user', JSON.stringify(response));
+        setUserInfo(response.data.user);
       }
-    })()
-  }, []);
+    })();
+  }, [setUserInfo, token]);
 
 
   return (

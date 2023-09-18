@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { useContext, useEffect, useState } from 'react';
 // @mui
-import { Container, LinearProgress, Stack, Typography } from '@mui/material';
+import { Container, Stack, Typography } from '@mui/material';
 import { LoadingContext } from '../App';
 import { fetchProducts } from '../api';
 // components
@@ -12,7 +12,7 @@ import { ProductSort, ProductList, ProductFilterSidebar } from '../sections/@das
 // ----------------------------------------------------------------------
 
 export default function ProductsPage() {
-  const [loading, setLoading] = useContext(LoadingContext);
+  const [, setLoading] = useContext(LoadingContext);
 
   const [products, setProducts] = useState([])
 
@@ -32,13 +32,12 @@ export default function ProductsPage() {
       .then((data) => {
         setProducts(data);
         setLoading(false);
-        // console.log(products); // Log the fetched data here
       })
       .catch((error) => {
         console.error(error);
-        setLoading(false); // Make sure to set loading to false on error
+        setLoading(false);
       });
-  }, []);
+  }, [setLoading]);
 
 
   return (
