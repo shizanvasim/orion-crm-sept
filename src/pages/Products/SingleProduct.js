@@ -17,7 +17,7 @@ const SingleProduct = () => {
                 setProduct(data)
             })
             .catch(err => console.error(err))
-    }, [])
+    }, [productId])
 
     const {
         product_id: productIdData,
