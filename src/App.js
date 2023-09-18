@@ -18,9 +18,9 @@ export const LoadingContext = createContext()
 
 export default function App() {
   const [loading, setLoading] = useState(false)
-  const [currentuser, setCurrentUser] = useState([])
+  // const [currentuser, setCurrentUser] = useState([])
   const token = localStorage.getItem("token")
-  const {username, email, setUserInfo} = userStore
+  const { setUserInfo} = userStore
 
   // Client Side
   useEffect(() => {
@@ -29,7 +29,7 @@ export default function App() {
         console.log("Please Login First")
       }else{
         const response = await axios.post('/login/protected', {"token": token})
-        setCurrentUser(response.data.user)
+        // setCurrentUser(response.data.user)
         localStorage.setItem('user', JSON.stringify(response))
         setUserInfo(response.data.user)
       }
