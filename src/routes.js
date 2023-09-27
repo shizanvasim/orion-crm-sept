@@ -20,6 +20,7 @@ import AddNewClient from './pages/Clients/AddNewClient';
 import EditClient from './pages/Clients/EditClient';
 import SingleProduct from './pages/Products/SingleProduct';
 import LogoutPage from './pages/LogoutPage';
+import CrmUsersPage from './pages/CrmUsersPage/CrmUsersPage';
 // import userStore from './stores/UserStore';
 // ----------------------------------------------------------------------
 
@@ -41,7 +42,7 @@ export default function Router() {
         { path: 'edit-client/:clientId', element: <EditClient /> },
         { path: 'products', element: <ProductsPage /> },
         { path: 'products/:productId', element: <SingleProduct /> },
-        { path: 'blog', element: <BlogPage /> },
+        { path: 'users', element: <CrmUsersPage /> },
         { path: 'logout', element: <LogoutPage /> },
       ],
     } :
