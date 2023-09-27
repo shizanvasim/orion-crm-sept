@@ -1,7 +1,7 @@
 import { Helmet } from 'react-helmet-async';
 import { filter } from 'lodash';
 // import { sentenceCase } from 'change-case';
-import {  useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
 // @mui
 import {
   Card,
@@ -22,6 +22,7 @@ import {
 
 // components
 import { Link } from 'react-router-dom';
+import axios from 'axios';
 import Iconify from '../components/iconify';
 import Scrollbar from '../components/scrollbar';
 
@@ -30,7 +31,7 @@ import { UserListHead, UserListToolbar } from '../sections/@dashboard/user';
 
 // mock
 import fetchedClients from '../_mock/user';
-// import { LoadingContext } from '../App';
+import { LoadingContext } from '../App';
 
 // ----------------------------------------------------------------------
 
@@ -78,7 +79,7 @@ function applySortFilter(array, comparator, query) {
 // --------------------------------------
 
 export default function UserPage() {
-  // const [loading, setLoading] = useContext(LoadingContext);
+  const [loading, setLoading] = useContext(LoadingContext);
 
   const [page, setPage] = useState(0);
 
@@ -91,6 +92,8 @@ export default function UserPage() {
   const [filterName, setFilterName] = useState('');
 
   const [rowsPerPage, setRowsPerPage] = useState(5);
+
+  const [clients, setClients] = useState([])
 
   // const handleOpenMenu = (event) => {
   //   setOpen(event.currentTarget);
@@ -148,7 +151,20 @@ export default function UserPage() {
 
   const isNotFound = !filteredUsers.length && !!filterName;
 
-  // useEffect(() => setLoading(true));
+  // useEffect(() => console.log(filteredUsers), []);
+
+  useEffect(() => {
+    (async () => {
+      try {
+        setLoading(true)
+        axios.get('/clients')
+          .then(res => setClients(res.data))
+          .then(()=> setLoading(false))
+      }catch(err){
+        console.error(err)
+      }
+    })()
+  }, [])
 
   return (
     <>
@@ -182,7 +198,7 @@ export default function UserPage() {
                   onSelectAllClick={handleSelectAllClick}
                 />
                 <TableBody>
-                  {filteredUsers.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage).map((row) => {
+                  {filteredUsers.map((row) => {
                     const {
                       client_id: clientId,
                       first_name: firstName,
@@ -192,7 +208,7 @@ export default function UserPage() {
                       email_id: emailId,
                       area: areaData
                     } = row;
-                    
+
 
                     const fullName = `${firstName} ${lastName}`;
                     const selectedUser = selected.indexOf(clientId) !== -1;

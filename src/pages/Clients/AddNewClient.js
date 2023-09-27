@@ -1,11 +1,14 @@
-import React, { useEffect, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Button, TextField, Container, Grid, Paper, Typography, Snackbar, Alert, Avatar, IconButton } from '@mui/material';
 import { Close } from '@mui/icons-material';
 import { postClient } from '../../api';
+import { LoadingContext } from '../../App';
 
 const AddNewClient = () => {
   const navigate = useNavigate();
+
+  const [loading, setLoading] = useContext(LoadingContext);
 
   const [snackbarOpen, setSnackbarOpen] = useState(false);
   const [snackbarMessage, setSnackbarMessage] = useState('');
@@ -48,14 +51,16 @@ const AddNewClient = () => {
 
 
     try {
+      setLoading(true)
       const response = await postClient(formDataToSend);
       if (response === 'Client Added Successfully') {
         setSeverity('success');
-
-
+        
+        
         // Redirect to clients route
         navigate('/dashboard/clients');
-        // window.location.reload();
+        window.location.reload();
+        setLoading(false)
       } else {
         setSeverity('error');
       }

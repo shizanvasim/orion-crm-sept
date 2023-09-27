@@ -10,6 +10,7 @@ import BreadcrumbsWithBack from '../../components/breadcrumbs/BreadcrumbsWithBac
 import { deleteClient, fetchClientById } from '../../api';
 import SingleClientGeneral from './SingeClient/SingleClientGeneral';
 import { LoadingContext } from '../../App';
+import BlogPage from '../BlogPage';
 
 export default function SingleClientPage() {
   const [, setLoading] = useContext(LoadingContext);
@@ -18,7 +19,7 @@ export default function SingleClientPage() {
   const { clientId } = useParams();
   const [currentTab, setCurrentTab] = useState(0);
 
-  const handleTabChange = (newValue) => {
+  const handleTabChange = (event, newValue) => {
     setCurrentTab(newValue);
   };
 
@@ -45,6 +46,7 @@ export default function SingleClientPage() {
         setLoading(false);
       });
   }, [clientId, setLoading]);
+
 
   return (
     <Container>
@@ -92,6 +94,7 @@ export default function SingleClientPage() {
 
           {/* General Tab */}
           {currentTab === 0 && <SingleClientGeneral info={clientInfo} handleDelete={handleDelete} />}
+          {currentTab === 1 && <BlogPage />}
         </React.Fragment>
       ))}
     </Container>

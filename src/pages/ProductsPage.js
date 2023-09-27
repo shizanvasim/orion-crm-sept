@@ -1,7 +1,8 @@
 import { Helmet } from 'react-helmet-async';
 import { useContext, useEffect, useState } from 'react';
 // @mui
-import { Container, Stack, Typography } from '@mui/material';
+import { Button, Container, Stack, Typography } from '@mui/material';
+import Iconify from '../components/iconify';
 import { LoadingContext } from '../App';
 import { fetchProducts } from '../api';
 // components
@@ -46,9 +47,13 @@ export default function ProductsPage() {
         <title> Dashboard: Products | Minimal UI </title>
       </Helmet>
       <Container>
-        <Typography variant="h4" sx={{ mb: 5 }}>
-          Products
-        </Typography>
+        <Stack direction={'row'}justifyContent={'space-between'} pb={4}>
+          <Typography variant="h4">
+            Products
+          </Typography>
+
+          <Button startIcon={<Iconify icon="eva:plus-fill" />} variant={'contained'}>Add New</Button>
+        </Stack>
 
         <Stack direction="row" flexWrap="wrap-reverse" alignItems="center" justifyContent="flex-end" sx={{ mb: 5 }}>
           <Stack direction="row" spacing={1} flexShrink={0} sx={{ my: 1 }}>

@@ -51,14 +51,14 @@ const LoginForm = () => {
     fetchUsers()
       .then((data) => {
         // setUsers(data);
-        console.log(data)
+        // console.log(data)
       })
       .catch((err) => {
         console.error(err);
       });
   }, []);
 
-  useEffect(() => console.log(username), [username])
+  // useEffect(() => console.log(username), [username])
 
   return (
     <form onSubmit={handleSubmit}>

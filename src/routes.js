@@ -19,6 +19,7 @@ import SingleClientPage from './pages/Clients/SingleClientPage';
 import AddNewClient from './pages/Clients/AddNewClient';
 import EditClient from './pages/Clients/EditClient';
 import SingleProduct from './pages/Products/SingleProduct';
+import LogoutPage from './pages/LogoutPage';
 // import userStore from './stores/UserStore';
 // ----------------------------------------------------------------------
 
@@ -41,6 +42,7 @@ export default function Router() {
         { path: 'products', element: <ProductsPage /> },
         { path: 'products/:productId', element: <SingleProduct /> },
         { path: 'blog', element: <BlogPage /> },
+        { path: 'logout', element: <LogoutPage /> },
       ],
     } :
     {
