@@ -12,28 +12,41 @@ import { StyledChart } from './components/chart';
 import ScrollToTop from './components/scroll-to-top';
 import userStore from './stores/UserStore';
 
+import LogoutPage from './pages/LogoutPage';
+
 // ----------------------------------------------------------------------
 
 export const LoadingContext = createContext()
 
 export default function App() {
   const [loading, setLoading] = useState(false)
-  // const [currentuser, setCurrentUser] = useState([])
   const token = localStorage.getItem("token")
   const { setUserInfo } = userStore
 
-  // Client Side
   useEffect(() => {
     (async () => {
       if (!token) {
         console.log("Please Login First");
       } else {
-        const response = await axios.post('/login/protected', { "token": token });
-        localStorage.setItem('user', JSON.stringify(response));
-        setUserInfo(response.data.user);
+        try {
+          const response = await axios.post('/login/protected', { "token": token });
+
+          if (response.status === 200) {
+            console.log('Token is valid');
+            localStorage.setItem('user', JSON.stringify(response.data.user));
+            setUserInfo(response.data.user);
+          } else {
+            console.log('Token is invalid. Status code:', response.status);
+          }
+        } catch (error) {
+          console.error('Error occurred:', error);
+          // Handle other network or request-related errors here
+          window.location.href = '/dashboard/logout';
+        }
       }
     })();
   }, [setUserInfo, token]);
+
 
 
   return (
