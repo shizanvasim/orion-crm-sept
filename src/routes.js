@@ -21,6 +21,7 @@ import EditClient from './pages/Clients/EditClient';
 import SingleProduct from './pages/Products/SingleProduct';
 import LogoutPage from './pages/LogoutPage';
 import CrmUsersPage from './pages/CrmUsersPage/CrmUsersPage';
+import UserPage2 from './pages/UserPage2';
 // import userStore from './stores/UserStore';
 // ----------------------------------------------------------------------
 
@@ -37,8 +38,10 @@ export default function Router() {
         { element: <Navigate to="/dashboard/app" />, index: true },
         { path: 'app', element: <DashboardAppPage /> },
         { path: 'clients', element: <UserPage /> },
+        { path: 'clients-2', element: <UserPage2 /> },
         { path: 'add-new-client', element: <AddNewClient/> },
         { path: 'clients/:clientId', element: <SingleClientPage /> },
+        { path: 'clients-2/:clientId', element: <SingleClientPage /> },
         { path: 'edit-client/:clientId', element: <EditClient /> },
         { path: 'products', element: <ProductsPage /> },
         { path: 'products/:productId', element: <SingleProduct /> },

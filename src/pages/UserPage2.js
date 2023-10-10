@@ -12,26 +12,29 @@ import {
     Checkbox,
     ButtonGroup,
     IconButton,
-    Typography,
     Toolbar,
     alpha,
-    Tooltip
+    Typography,
+    Tooltip,
+    Button,
+    Stack
 } from '@mui/material';
-import { Delete, Edit, FilterList } from '@mui/icons-material';
+import { Edit, Delete, Add } from '@mui/icons-material';
 
 import axios from 'axios';
 
 import { Link } from 'react-router-dom';
 
-import { LoadingContext } from '../../App';
+import { LoadingContext } from '../App';
 
 
 const columns = [
-    { id: 'user_id', label: 'ID' },
-    { id: 'username', label: 'Username' },
-    { id: 'email', label: 'Email' },
-    { id: 'role', label: 'Role' },
-    { id: 'created_at', label: 'Joined On' },
+    { id: 'client_id', label: 'ID' },
+    { id: 'first_name', label: 'First Name' },
+    { id: 'last_name', label: 'Last Name' },
+    { id: 'shop_name', label: 'Company Name' },
+    { id: 'mobile_no', label: 'Mobile' },
+    { id: 'area', label: 'Area' },
 ];
 
 
@@ -50,49 +53,47 @@ function EnhancedTableToolbar(props) {
                 }),
             }}
         >
-            {numSelected > 0 ? (
-                <Typography
-                    sx={{ flex: '1 1 100%' }}
-                    color="inherit"
-                    variant="subtitle1"
-                    component="div"
-                >
-                    {numSelected} selected
-                </Typography>
-            ) : (
-                <Typography
-                    sx={{ flex: '1 1 100%' }}
-                    variant="h6"
-                    id="tableTitle"
-                    component="div"
-                >
-                    All Users
-                </Typography>
-            )}
+            <Stack direction={'row'} justifyContent={'space-between'} width={'100%'} alignItems={'center'}>
+                {numSelected > 0 ? (
+                    <Typography
+                        sx={{ flex: '1 1 100%' }}
+                        color="inherit"
+                        variant="subtitle1"
+                        component="div"
+                    >
+                        {numSelected} selected
+                    </Typography>
+                ) : (
+                    <Typography
+                        variant="h6"
+                        id="tableTitle"
+                        component="div"
+                    >
+                        All Clients
+                    </Typography>
+                )}
 
-            {numSelected > 0 ? (
-                <Tooltip title="Delete">
-                    <IconButton>
-                        <Delete />
-                    </IconButton>
-                </Tooltip>
-            ) : (
-                <Tooltip title="Filter list">
-                    <IconButton>
-                        <FilterList />
-                    </IconButton>
-                </Tooltip>
-            )}
+                {numSelected > 0 ? (
+                    <Tooltip title="Delete">
+                        <IconButton>
+                            <Delete />
+                        </IconButton>
+                    </Tooltip>
+                ) : (
+                    <Tooltip title="Add New Client">
+                        <Button startIcon={<Add />} variant='contained'>
+                        <Link to="/dashboard/add-new-client">New Client</Link>
+                        </Button>
+                    </Tooltip>
+                )}
+            </Stack>
         </Toolbar>
     );
 }
 
-
-
-
-const CrmUsersPage = () => {
+const UserPage2 = () => {
     const [, setLoading] = useContext(LoadingContext);
-    const [users, setUsers] = useState([])
+    const [clients, setClients] = useState([])
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(5);
 
@@ -111,7 +112,7 @@ const CrmUsersPage = () => {
 
     const handleSelectAllClick = (event) => {
         if (event.target.checked) {
-            const newSelected = users.map((client) => client.user_id);
+            const newSelected = clients.map((client) => client.client_id);
             setSelected(newSelected);
         } else {
             setSelected([]);
@@ -140,14 +141,14 @@ const CrmUsersPage = () => {
 
     const isSelected = (id) => selected.indexOf(id) !== -1;
 
-    const rows = users
+    const rows = clients
 
     useEffect(() => {
         (async () => {
             try {
                 setLoading(true)
-                axios.get('/users')
-                    .then(res => setUsers(res.data))
+                axios.get('/clients')
+                    .then(res => setClients(res.data))
                     .then(() => setLoading(false))
             } catch (err) {
                 console.error(err)
@@ -159,9 +160,10 @@ const CrmUsersPage = () => {
         console.log(selected)
     }, [selected])
 
+
     return (
         <Paper>
-            <EnhancedTableToolbar numSelected={selected.length}/>
+            <EnhancedTableToolbar numSelected={selected.length} />
             <TableContainer>
                 <Table>
                     <TableHead>
@@ -187,12 +189,12 @@ const CrmUsersPage = () => {
                         {rows
                             .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
                             .map((row) => {
-                                const isItemSelected = isSelected(row.user_id);
+                                const isItemSelected = isSelected(row.client_id);
                                 return (
                                     <TableRow
-                                        key={row.user_id} // Unique key for TableRow
+                                        key={row.client_id} // Unique key for TableRow
                                         hover
-                                        onClick={(event) => handleClick(event, row.user_id)} // Use user_id here
+                                        onClick={(event) => handleClick(event, row.client_id)} // Use client_id here
                                         role="checkbox"
                                         aria-checked={isItemSelected}
                                         selected={isItemSelected}
@@ -201,11 +203,11 @@ const CrmUsersPage = () => {
                                             <Checkbox checked={isItemSelected} />
                                         </TableCell>
                                         {columns.map((column) => (
-                                            <TableCell key={`${column.id}-${row.user_id}`}>{row[column.id]}</TableCell> // Unique key for TableCell
+                                            <TableCell key={`${column.id}-${row.client_id}`}>{row[column.id]}</TableCell> // Unique key for TableCell
                                         ))}
                                         <TableCell>
                                             <ButtonGroup>
-                                                <IconButton><Link to={`${row.user_id}`}><Edit /></Link></IconButton>
+                                                <IconButton><Link to={`${row.client_id}`}><Edit /></Link></IconButton>
                                                 <IconButton color='error'><Delete /></IconButton>
                                             </ButtonGroup>
                                         </TableCell>
@@ -228,4 +230,4 @@ const CrmUsersPage = () => {
     )
 }
 
-export default CrmUsersPage
+export default UserPage2

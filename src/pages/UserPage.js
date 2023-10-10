@@ -166,6 +166,10 @@ export default function UserPage() {
     })()
   }, [])
 
+  useEffect(()=>{
+    console.log(clients)
+  }, [clients])
+
   return (
     <>
       <Helmet>
