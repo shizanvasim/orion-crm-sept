@@ -2,6 +2,7 @@ import { Helmet } from 'react-helmet-async';
 import { useContext, useEffect, useState } from 'react';
 // @mui
 import { Button, Container, Stack, Typography } from '@mui/material';
+import { Link } from 'react-router-dom';
 import Iconify from '../components/iconify';
 import { LoadingContext } from '../App';
 import { fetchProducts } from '../api';
@@ -52,7 +53,7 @@ export default function ProductsPage() {
             Products
           </Typography>
 
-          <Button startIcon={<Iconify icon="eva:plus-fill" />} variant={'contained'}>Add New</Button>
+          <Button startIcon={<Iconify icon="eva:plus-fill" />} variant={'contained'}><Link to={'add-product'}>Add New</Link></Button>
         </Stack>
 
         <Stack direction="row" flexWrap="wrap-reverse" alignItems="center" justifyContent="flex-end" sx={{ mb: 5 }}>

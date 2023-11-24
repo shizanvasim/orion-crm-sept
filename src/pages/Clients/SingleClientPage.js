@@ -11,6 +11,7 @@ import { deleteClient, fetchClientById } from '../../api';
 import SingleClientGeneral from './SingeClient/SingleClientGeneral';
 import { LoadingContext } from '../../App';
 import BlogPage from '../BlogPage';
+import ClientBilling from './SingeClient/ClientBilling';
 
 export default function SingleClientPage() {
   const [, setLoading] = useContext(LoadingContext);
@@ -94,7 +95,7 @@ export default function SingleClientPage() {
 
           {/* General Tab */}
           {currentTab === 0 && <SingleClientGeneral info={clientInfo} handleDelete={handleDelete} />}
-          {currentTab === 1 && <BlogPage />}
+          {currentTab === 1 && <ClientBilling info={clientInfo} />}
         </React.Fragment>
       ))}
     </Container>

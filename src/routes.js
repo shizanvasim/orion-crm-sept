@@ -22,13 +22,18 @@ import SingleProduct from './pages/Products/SingleProduct';
 import LogoutPage from './pages/LogoutPage';
 import CrmUsersPage from './pages/CrmUsersPage/CrmUsersPage';
 import UserPage2 from './pages/UserPage2';
+import SingleBill from './pages/Clients/SingeClient/SingleBill';
+import SingleUserPage from './pages/CrmUsersPage/SingleUserPage';
+import EditUserpage from './pages/CrmUsersPage/EditUserpage';
+import AddUserPage from './pages/CrmUsersPage/AddUserPage';
+import AddProduct from './pages/Products/AddProduct';
+import EditProduct from './pages/Products/EditProduct';
 // import userStore from './stores/UserStore';
 // ----------------------------------------------------------------------
 
 
 export default function Router() {
   const isAuthenticated = localStorage.getItem('token')
-  // const {username} = userStore
 
   const routes = useRoutes([
     (isAuthenticated ? {
@@ -41,11 +46,17 @@ export default function Router() {
         { path: 'clients-2', element: <UserPage2 /> },
         { path: 'add-new-client', element: <AddNewClient/> },
         { path: 'clients/:clientId', element: <SingleClientPage /> },
+        { path: 'clients/:clientId/:billId', element: <SingleBill /> },
         { path: 'clients-2/:clientId', element: <SingleClientPage /> },
         { path: 'edit-client/:clientId', element: <EditClient /> },
         { path: 'products', element: <ProductsPage /> },
+        { path: 'products/add-product', element: <AddProduct /> },
         { path: 'products/:productId', element: <SingleProduct /> },
+        { path: 'products/:productId/edit-product/:productId', element: <EditProduct /> },
         { path: 'users', element: <CrmUsersPage /> },
+        { path: 'users/add-user', element: <AddUserPage /> },
+        { path: 'users/:userId', element: <SingleUserPage /> },
+        { path: 'users/edit/:userId', element: <EditUserpage /> },
         { path: 'logout', element: <LogoutPage /> },
       ],
     } :
